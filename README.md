@@ -1,7 +1,7 @@
 Project Setup
 
 1. Clone the repository
-git clone https://github.com/yourusername/library_management.git
+git clone https://github.com/Nafeesp2001/library_management.git
 cd library_management
 
 2. Set up a virtual environment

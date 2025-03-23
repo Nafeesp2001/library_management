@@ -7,7 +7,7 @@ class CustomUserManager(BaseUserManager):
             raise ValueError("The Email field must be set")
 
         email = self.normalize_email(email)
-        extra_fields.setdefault('is_active', True)  # Ensure user is active
+        extra_fields.setdefault('is_active', True)  
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
@@ -20,18 +20,18 @@ class CustomUserManager(BaseUserManager):
 
 class AdminUser(AbstractUser):
     email = models.EmailField(unique=True)
-    username = None  # Remove username field
+    username = None  
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     groups = models.ManyToManyField(
         "auth.Group",
-        related_name="admin_users",  # Avoid clash with Django's default User
+        related_name="admin_users",  
         blank=True,
     )
     user_permissions = models.ManyToManyField(
         "auth.Permission",
-        related_name="admin_users_permissions",  # Avoid clash
+        related_name="admin_users_permissions",  
         blank=True,
     )
 

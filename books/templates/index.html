@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Books</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        h1 { color: #333; }
+        table { width: 80%; margin: auto; border-collapse: collapse; }
+        th, td { padding: 10px; border: 1px solid #ddd; }
+        th { background-color: #f4f4f4; }
+    </style>
+</head>
+<body>
+    <h1>Library Books</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>ISBN</th>
+                <th>Published Date</th>
+            </tr>
+        </thead>
+        <tbody id="books-table">
+            <!-- Books will be added here -->
+        </tbody>
+    </table>
+
+    <script>
+        async function fetchBooks() {
+            try {
+                let response = await fetch("http://127.0.0.1:8000/api/student/books/");
+                let books = await response.json();
+
+                let table = document.getElementById("books-table");
+                books.forEach(book => {
+                    let row = `
+                        <tr>
+                            <td>${book.id}</td>
+                            <td>${book.title}</td>
+                            <td>${book.author}</td>
+                            <td>${book.isbn}</td>
+                            <td>${book.published_date}</td>
+                        </tr>`;
+                    table.innerHTML += row;
+                });
+            } catch (error) {
+                console.error("Error fetching books:", error);
+            }
+        }
+
+        // Load books when the page loads
+        window.onload = fetchBooks;
+    </script>
+</body>
+</html>
